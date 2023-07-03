@@ -15,50 +15,53 @@ import com.projeto.java.dominio.PessoaRepositorio;
 @Controller
 public class PessoaControle {
 
-	
 	private PessoaRepositorio pessoaRepo;
-	
+
 	public PessoaControle(PessoaRepositorio pessoaRepo) {
 		this.pessoaRepo = pessoaRepo;
 	}
-	
-		
+
+	@GetMapping("/")
+	public String paginaInicial() {
+		return "rh/pessoas/paginaInicial";
+	}
+
 	@GetMapping("/rh/pessoas")
 	public String pessoas(Model model) {
 		model.addAttribute("listaPessoas", pessoaRepo.findAll());
 		return "rh/pessoas/index";
-		
+
 	}
-	
+
 	@GetMapping("/rh/pessoas/nova")
 	public String novaPessoa(@ModelAttribute("pessoa") Pessoa pessoa) {
 		return "rh/pessoas/form";
 	}
-	
+
 	@GetMapping("/rh/pessoas/{id}")
 	public String editarPessoa(@PathVariable("id") long id, Model model) {
 		Optional<Pessoa> pessoaOpt = pessoaRepo.findById(id);
-		if(pessoaOpt.isEmpty()) {
+		if (pessoaOpt.isEmpty()) {
 			throw new IllegalArgumentException("Pessoa inválida. ");
 		}
-		
+
 		model.addAttribute("pessoa", pessoaOpt.get());
 		return "rh/pessoas/form";
 	}
-	
+
 	@PostMapping("rh/pessoas/salvar")
 	public String salvarPessoa(@ModelAttribute("pessoa") Pessoa pessoa) {
 		pessoaRepo.save(pessoa);
 		return "redirect:/rh/pessoas";
 	}
-	
+
 	@GetMapping("/rh/pessoas/excluir/{id}")
 	public String excluirPessoa(@PathVariable("id") long id) {
 		Optional<Pessoa> pessoaOpt = pessoaRepo.findById(id);
-		if(pessoaOpt.isEmpty()) {
+		if (pessoaOpt.isEmpty()) {
 			throw new IllegalArgumentException("Pessoa inválida. ");
 		}
-		
+
 		pessoaRepo.delete(pessoaOpt.get());
 		return "redirect:/rh/pessoas";
 	}
