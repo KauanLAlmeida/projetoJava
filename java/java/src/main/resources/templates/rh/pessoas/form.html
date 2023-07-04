@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de gestão de pessoas</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+
+</head>
+
+<body style="background-color: #03353e">
+
+
+	<div class="container" style="text-align: center">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg bg-body-tertiary">
+				<div class="container-fluid"></div>
+			</nav>
+		</div>
+
+		<h1 class="text-white bg-black">Sistemas de Gestão de Pessoas</h1>
+		<hr>
+		<div style="width: 50%; margin: 0 auto">
+			<h2 class="text-white bg-black">Editar Pessoa</h2>
+			<form action="#" th:action="@{/rh/pessoas/salvar}"
+				th:object="${pessoa}" method="POST"
+				class="d-flex flex-wrap align-self-center">
+				<input type="hidden" id="id" th:field="*{id}"> <input
+					type="text" th:field="*{nome}" placeholder="Nome"
+					class="form-control mb-4 col-12"> <input type="date"
+					th:field="*{dataNascimento}" placeholder="Data Nascimento"
+					class="form-control mb-4 col-12"> <input type="text"
+					th:field="*{cpf}" placeholder="CPF"
+					class="form-control mb-4 col-12"> <input type="text"
+					th:field="*{email}" placeholder="Email"
+					class="form-control mb-4 col-12"> <input type="text"
+					th:field="*{telefone}" placeholder="Telefone"
+					class="form-control mb-4 col-12">
+
+				<button type="submit" class="btn btn-info col-2">Salvar</button>
+			</form>
+		</div>
+		<hr>
+		<a th:href="@{/rh/pessoas}">Retornar para lista de pessoas</a>
+	</div>
+
+</body>
+</html>
+
